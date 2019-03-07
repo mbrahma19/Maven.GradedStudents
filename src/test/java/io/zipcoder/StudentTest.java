@@ -142,7 +142,7 @@ public class StudentTest {
         //when
         Student newStudent = new Student(firstName,lastName,new Double[]{97.8, 92.0, 76.9});
         newStudent.addExamScore(expectedExamScores);
-        Double actualExamScores = newStudent.getExamScore(3);
+        Double actualExamScores = newStudent.getExamScore(4);
 
         //then
         Assert.assertEquals(expectedExamScores,actualExamScores);
@@ -182,7 +182,7 @@ public class StudentTest {
                 "       Exam 3 -> null\n";
         //when
         Student newStudent = new Student(firstName,lastName,new Double[]{null, 92.0,null});
-        newStudent.setExamScore(0,99.0);
+        newStudent.setExamScore(1,99.0);
         String actualExamScoresString = newStudent.getExamScores();
 
         //then
@@ -226,10 +226,8 @@ public class StudentTest {
     @Test
     public void toStringStudentWithNoExamsTest(){
         //given
-        Student newStudent = new Student("Marci", "Brahma",new Double[]{100.0, 74.5});
-        String expectedToString = "Student Name: Marci Brahma\n>Average Score: 0\n>Exam Scores:\n"+
-                "Exam 1 -> 100.00\n" +
-                "Exam 2 -> 74.50\n";
+        Student newStudent = new Student("Marci", "Brahma",new Double[0]);
+        String expectedToString = "Student Name: Marci Brahma\n>Average Score: 0.0\n>Exam Scores:\n";
         //when
         String actualToString = newStudent.toString();
         //then
@@ -238,11 +236,14 @@ public class StudentTest {
 
     @Test
     public void toStringStudentWithExamsTest(){
-        //given
-        Student newStudent = new Student();
+        Student newStudent = new Student("Marci", "Brahma",new Double[]{100.0, 74.5});
+        String expectedToString = "Student Name: Marci Brahma\n>Average Score: 87.0\n>Exam Scores:\n"+
+                "       Exam 1 -> 100.00\n" +
+                "       Exam 2 -> 74.50\n";
         //when
-
+        String actualToString = newStudent.toString();
         //then
+        Assert.assertEquals(expectedToString,actualToString);
     }
 
 

@@ -91,7 +91,7 @@ public class Student {
      * @return
      */
 
-    public Double getExamScore(Integer index){return examScores.get(index);}
+    public Double getExamScore(Integer index){return examScores.get(index-1);}
 
     /**
      *  Sets the exam score at the specified index with the new exam score provided
@@ -100,8 +100,8 @@ public class Student {
      */
 
     public void setExamScore(int examIndex, double newExamScore){
-        examScores.remove(examIndex);
-        examScores.add(examIndex,newExamScore);
+        examScores.remove(examIndex-1);
+        examScores.add(examIndex-1,newExamScore);
     }
 
     /**
@@ -116,7 +116,7 @@ public class Student {
      * Returns the total amount of points the student has accumalated. Calculated by adding all the exam scores.
      * @return
      */
-    private Double getTotalScore(){
+    public Double getTotalScore(){
         Double result = 0.0;
         for(Double d : examScores){
             result += d;

@@ -226,8 +226,7 @@ public class ClassroomTest {
         Student[] expected = new Student[]{s2,s1,s3};
         //when
         Classroom classroom = new Classroom(new Student[]{s3,s1,s2});
-        Arrays.sort(classroom.getStudents(), new StudentComparator());
-        Student[] actual = classroom.getStudents();
+        Student[] actual = classroom.getStudentByScore();
         //then
         Assert.assertEquals(expected,actual);
     }
@@ -266,7 +265,7 @@ public class ClassroomTest {
         //when
         classroom.getGradebook();
         Map<Student,String> testMap = classroom.gradeBook();
-        
+
         String actualAGrade = testMap.get(s6);
         String actualFGrade = testMap.get(s8);
         //then

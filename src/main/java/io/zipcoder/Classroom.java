@@ -54,6 +54,12 @@ public class Classroom {
         return result;
     }
 
+    public Student[] getStudentByScore(){
+        Student[] sortedArray = Arrays.copyOf(studentList,studentList.length);
+        Arrays.sort(sortedArray, new StudentComparator());
+        return sortedArray;
+    }
+
     public Map<Student,String> gradeBook(){
         return gradebook;
     }

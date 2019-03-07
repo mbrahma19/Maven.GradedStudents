@@ -1,26 +1,29 @@
 package io.zipcoder;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 public class Classroom {
 
     private Student[] studentList;
     private int maxNumberOfStudents;
+    private Map<Student,String> gradebook;
 
     public Classroom() {
         studentList = new Student[30];
         this.maxNumberOfStudents = 30;
+        this.gradebook = new HashMap<>();
     }
 
     public Classroom(int maxNumberOfStudents) {
         studentList = new Student[maxNumberOfStudents];
         this.maxNumberOfStudents = maxNumberOfStudents;
+        this.gradebook = new HashMap<>();
     }
 
     public Classroom(Student[] students) {
         studentList = students;
         maxNumberOfStudents = students.length;
+        this.gradebook = new HashMap<>();
     }
 
     public Integer getClassroomSize() {
@@ -51,6 +54,10 @@ public class Classroom {
         return result;
     }
 
+    public Map<Student,String> gradeBook(){
+        return gradebook;
+    }
+
     public void add(Student s) throws IllegalArgumentException {
         ArrayList<Student> newArrayList = new ArrayList(Arrays.asList(studentList));
         if (!newArrayList.contains(null) && newArrayList.size() == maxNumberOfStudents) {
@@ -74,6 +81,34 @@ public class Classroom {
         newArrayList.remove(sToRemove);
         newArrayList.add(null);
         studentList = newArrayList.toArray(new Student[newArrayList.size()]);
+    }
+
+    public String getGradebook(){
+        Arrays.sort(studentList, new StudentComparator());
+        returnBPercentile(0.0, .1, "A");
+        returnBPercentile(0.1, .3, "B");
+        returnBPercentile(0.3, .5, "C");
+        returnBPercentile(0.5, .9, "D");
+        returnBPercentile(0.9, 1.0, "F");
+        return printGradeMap();
+    }
+
+    private String printGradeMap(){
+        String result = "GradeBook\n";
+        for(Map.Entry<Student,String> entry : gradebook.entrySet()){
+            result += String.format("\t%s %s: %s\n",entry.getKey().getFirstName(),entry.getKey().getLastName(),entry.getValue());
+        }
+        return result;
+    }
+
+    public void returnBPercentile(Double start, Double stop, String grade){
+        Integer stopPos = (int) (studentList.length * stop);
+        Integer startPos = (int) (studentList.length * start);
+        for(int i = startPos; i < stopPos ;i++){
+            Student currStudent = studentList[i];
+            gradebook.put(currStudent,grade);
+        }
+
     }
 }
 

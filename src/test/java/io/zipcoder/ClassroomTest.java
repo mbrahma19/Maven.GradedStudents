@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Map;
 
 public class ClassroomTest {
 
@@ -245,6 +246,32 @@ public class ClassroomTest {
         Student[] actual = classroom.getStudents();
         //then
         Assert.assertEquals(expected,actual);
+    }
+
+    @Test
+    public void getGradeBook(){
+        //given
+        Student s1 = new Student("M","B", new Double[]{100.0});
+        Student s2 = new Student("D","P", new Double[]{120.0});
+        Student s3 = new Student("C", "W", new Double[]{90.0});
+        Student s4 = new Student("Z","B", new Double[]{50.0});
+        Student s5 = new Student("F","P", new Double[]{101.0});
+        Student s6 = new Student("X", "W", new Double[]{205.0});
+        Student s7 = new Student("Y","B", new Double[]{100.0});
+        Student s8 = new Student("N","L", new Double[]{40.0});
+        Student s9 = new Student("K", "D", new Double[]{75.0});
+        Student s10 = new Student("L","B", new Double[]{130.0});
+        Classroom classroom = new Classroom(new Student[]{s3,s1,s2,s4,s5,s6,s7,s8,s9,s10});
+
+        //when
+        classroom.getGradebook();
+        Map<Student,String> testMap = classroom.gradeBook();
+        
+        String actualAGrade = testMap.get(s6);
+        String actualFGrade = testMap.get(s8);
+        //then
+        Assert.assertEquals("A",actualAGrade);
+        Assert.assertEquals("F",actualFGrade);
     }
 
 
